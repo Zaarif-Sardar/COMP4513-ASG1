@@ -1,55 +1,54 @@
-const api = require('../api.js');
 const supa = require('@supabase/supabase-js');
 const supaUrl = 'https://xepgwmitcygbgwpttelv.supabase.co';
 const supaAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhlcGd3bWl0Y3lnYmd3cHR0ZWx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMjYwODYsImV4cCI6MjA1NTYwMjA4Nn0.gksC0938ccPA8TsqpdxH--TprNp54gQFgvle3I45gLk';
 const supabase = supa.createClient(supaUrl, supaAnonKey);
 
-//get all eras
-const getAllEras = (app) =>
+
+//Get all Artists
+const getAllArtists = (app) =>
     {
-        app.get("/api/eras", async (req, res) => {
+        app.get("/api/artists", async (req, res) => {
         const {data, error} = await supabase
-        .from('eras')
+        .from('artists')
         .select();
         res.send(data)
         });
     }
-// get all Galleries
-const getAllGalleries = (app) =>
+//Get a Artists
+const getSpecificArtist = (app) =>
     {
-        app.get("/api/galleries", async (req, res) => {
+        app.get("/api/artists/:id", async (req, res) => {
         const {data, error} = await supabase
-        .from('galleries')
-        .select();
+        .from('artists')
+        .select()
+        .eq('artistId', req.params.id);
+        res.send(data)
+        });
+    }
+const getSpecificArtistSubtring = (app) =>
+    {
+        app.get("/api/artists/search/:substring", async (req, res) => {
+        const {data, error} = await supabase
+        .from('artists')
+        .select()
+        .ilike('lastName',`${req.params.substring}%`);
+        res.send(data)
+        });
+    }
+const getArtistSubtringCountry = (app) =>
+    {
+        app.get("/api/artists/country/:substring", async (req, res) => {
+        const {data, error} = await supabase
+        .from('artists')
+        .select()
+        .ilike('nationality',`${req.params.substring}%`);
         res.send(data)
         });
     }
 
-// get all Galleries
-const getSpecificGallery = (app) =>
-    {
-        app.get("/api/galleries/:id", async (req, res) => {
-        const {data, error} = await supabase
-        .from('galleries')
-        .select()
-        .eq('galleryId',req.params.id);
-        res.send(data)
-        });
-    }
-const getCountryGallery = (app) =>
-    {
-        app.get("/api/galleries/country/:substring" , async (req, res) => {
-        const {data, error} = await supabase
-        .from('galleries')
-        .select()
-        .ilike('galleryCountry',`${req.params.substring}%`);
-        res.send(data)
-        });
-    }
 module.exports = {
-    getAllEras,
-    getAllGalleries,
-    getSpecificGallery,
-    getCountryGallery
+    getAllArtists,
+    getSpecificArtist,
+    getSpecificArtistSubtring,
+    getArtistSubtringCountry
     };
-    
