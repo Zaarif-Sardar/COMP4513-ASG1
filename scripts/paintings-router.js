@@ -41,7 +41,7 @@ const getSpecificPaintingsId = (app) =>
         app.get("/api/paintings/:id", async (req, res) => {
         const {data, error} = await supabase
         .from('paintings')
-        .select()
+        .select('*, artists (*), galleries (*)')
         .eq('paintingId',req.params.id);
         res.send(data)
         });
@@ -51,7 +51,7 @@ const getPaintingsbySubtring = (app) =>
         app.get("/api/paintings/search/:substring", async (req, res) => {
         const {data, error} = await supabase
         .from('paintings')
-        .select('*, artists (*), galleries (*)')
+        .select('*, artists!inner (*), galleries!inner(*)')
         .ilike('title',`%${req.params.substring}%`);
         res.send(data)
         });
