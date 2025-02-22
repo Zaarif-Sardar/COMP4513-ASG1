@@ -7,6 +7,8 @@ const router = require('./scripts/router.js');
 const artistRouter = require('./scripts/artists-router.js')
 const paintingRouter = require('./scripts/paintings-router.js')
 const genresRouter = require('./scripts/genres-router.js');
+const paintingExtraRouter = require('./scripts/paintingsExtras-router.js');
+const countRouter = require('./scripts/count-routes.js');
 
 //Gallery Routes
 router.getAllEras(app);
@@ -36,6 +38,13 @@ genresRouter.getAllGenres(app);
 genresRouter.getSpecificGenre(app);
 genresRouter.getGenresOfPainting(app);
 
+//Paintings Extra Routes 
+paintingExtraRouter.getPatintingsBasedOnGenreID(app);
+paintingExtraRouter.getPatintingsBasedOnEras(app);
+
+// count routes
+countRouter.getPatintingsCountPerGenre(app);
+
 
 //set port
 app.listen(8080, () => {
@@ -63,6 +72,12 @@ app.listen(8080, () => {
     console.log('http://localhost:8080/api/genres');
     console.log('http://localhost:8080/api/genres/76');
     console.log('http://localhost:8080/api/genres/painting/408');
+    console.log('******Painting Extra ROUTES******');
+    console.log('http://localhost:8080/api/paintings/genre/78');
+    console.log('http://localhost:8080/api/paintings/era/2');
+    console.log('******Count ROUTES******');
+    console.log('http://localhost:8080/api/count/genres');
+
 
     });
 
