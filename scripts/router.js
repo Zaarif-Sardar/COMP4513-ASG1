@@ -31,10 +31,17 @@ const getSpecificGallery = (app) =>
         app.get("/api/galleries/:id", async (req, res) => {
         const {data, error} = await supabase
         .from('galleries')
-        .select()
-        .eq('galleryId',req.params.id);
-        res.send(data)
+            .select()
+            .eq('galleryId',req.params.id);
+            if(data.length === 0)
+                {
+                    res.json("No gallery with that ID");
+                }
+            else{
+                res.send(data)
+                }
         });
+    
     }
 const getCountryGallery = (app) =>
     {
@@ -43,7 +50,13 @@ const getCountryGallery = (app) =>
         .from('galleries')
         .select()
         .ilike('galleryCountry',`${req.params.substring}%`);
-        res.send(data)
+        if(data.length === 0)
+            {
+                res.json("No gallery country with with those characters");
+            }
+        else{
+            res.send(data)
+            }
         });
     }
 module.exports = {

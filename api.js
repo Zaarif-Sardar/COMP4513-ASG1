@@ -44,6 +44,8 @@ paintingExtraRouter.getPatintingsBasedOnEras(app);
 
 // count routes
 countRouter.getPatintingsCountPerGenre(app);
+countRouter.getPatintingsCountPerArtist(app);
+countRouter.getTopGenres(app);
 
 
 //set port
@@ -77,6 +79,8 @@ app.listen(8080, () => {
     console.log('http://localhost:8080/api/paintings/era/2');
     console.log('******Count ROUTES******');
     console.log('http://localhost:8080/api/count/genres');
+    console.log('http://localhost:8080/api/count/artists');
+    console.log('http://localhost:8080/api/count/topgenres/ref');
 
 
     });

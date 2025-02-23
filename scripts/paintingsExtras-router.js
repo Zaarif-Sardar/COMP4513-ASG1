@@ -11,7 +11,13 @@ const getPatintingsBasedOnGenreID = (app) =>
         .select(`paintingId, title, yearOfWork, paintinggenres!inner(genreId)`)
         .eq('paintinggenres.genreId', req.params.gId)
         .order('yearOfWork',{ascending:true});
+        if(data.length === 0)
+        {
+            res.json("No genre with with the id");
+        }
+        else{
         res.send(data)
+        }
         });
     }
 const getPatintingsBasedOnEras = (app) =>
@@ -22,7 +28,13 @@ const getPatintingsBasedOnEras = (app) =>
         .select(`paintingId, title, yearOfWork, paintinggenres!inner(genreId, genres!inner(eras!inner(eraId)))`)
         .eq('paintinggenres.genres.eras.eraId',req.params.id)
         .order('yearOfWork',{ascending:true});
-        res.send(data)
+        if(data.length === 0)
+            {
+                res.json("No eras with that id");
+            }
+        else{
+            res.send(data)
+            }
         });
     }
 

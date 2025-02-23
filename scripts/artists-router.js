@@ -22,9 +22,16 @@ const getSpecificArtist = (app) =>
         .from('artists')
         .select()
         .eq('artistId', req.params.id);
-        res.send(data)
+        if(data.length === 0)
+            {
+                res.json("No Artist with with that ID");
+            }
+        else{
+            res.send(data)
+            }
         });
     }
+
 const getSpecificArtistSubtring = (app) =>
     {
         app.get("/api/artists/search/:substring", async (req, res) => {
@@ -32,7 +39,13 @@ const getSpecificArtistSubtring = (app) =>
         .from('artists')
         .select()
         .ilike('lastName',`${req.params.substring}%`);
-        res.send(data)
+        if(data.length === 0)
+            {
+                res.json("No Artist with with that in their last name");
+            }
+        else{
+            res.send(data)
+            }
         });
     }
 const getArtistSubtringCountry = (app) =>
@@ -42,7 +55,13 @@ const getArtistSubtringCountry = (app) =>
         .from('artists')
         .select()
         .ilike('nationality',`${req.params.substring}%`);
-        res.send(data)
+        if(data.length === 0)
+            {
+                res.json("No artist nationality with with those characters");
+            }
+        else{
+            res.send(data)
+            }
         });
     }
 

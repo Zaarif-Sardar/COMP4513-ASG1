@@ -43,7 +43,13 @@ const getSpecificPaintingsId = (app) =>
         .from('paintings')
         .select('*, artists (*), galleries (*)')
         .eq('paintingId',req.params.id);
-        res.send(data)
+        if(data.length === 0)
+            {
+                res.json("No painting with with the id");
+            }
+        else{
+            res.send(data)
+            }
         });
     }
 const getPaintingsbySubtring = (app) =>
@@ -53,7 +59,13 @@ const getPaintingsbySubtring = (app) =>
         .from('paintings')
         .select('*, artists!inner (*), galleries!inner(*)')
         .ilike('title',`%${req.params.substring}%`);
-        res.send(data)
+        if(data.length === 0)
+            {
+                res.json("No painting title with with the substring");
+            }
+        else{
+            res.send(data)
+            }
         });
     }
 const getPaintingsYearRange = (app) =>
@@ -65,7 +77,13 @@ const getPaintingsYearRange = (app) =>
             .gte("yearOfWork", req.params.start)
             .lte("yearOfWork", req.params.end)
             .order("yearOfWork",{ascending:true});
-            res.send(data)
+            if(data.length === 0)
+                {
+                    res.json("no paintings within that year range. Try a different range." );
+                }
+            else{
+                res.send(data)
+                }
             });
     }
 const getPaintingsbyGalleryId = (app) =>
@@ -75,7 +93,13 @@ const getPaintingsbyGalleryId = (app) =>
             .from('paintings')
             .select('*, artists (*), galleries (*)')
             .eq("galleryId",req.params.gId)
-            res.send(data)
+            if(data.length === 0)
+                {
+                    res.json("No gallery with with the id");
+                }
+            else{
+                res.send(data)
+                }
             });
     }
 const getPaintingsbyArtistId = (app) =>
@@ -85,7 +109,13 @@ const getPaintingsbyArtistId = (app) =>
             .from('paintings')
             .select('*, artists (*), galleries (*)')
             .eq("artistId",req.params.aId)
-            res.send(data)
+            if(data.length === 0)
+                {
+                    res.json("No artist with with the id" );
+                }
+            else{
+                res.send(data)
+                }
             });
     }
 const getPaintingsbyArtistNationality = (app) =>
@@ -95,7 +125,13 @@ const getPaintingsbyArtistNationality = (app) =>
             .from('paintings')
             .select(`*, artists!inner (*), galleries (*)`)
             .ilike('artists.nationality',`${req.params.substring}%`);
-            res.send(data)
+            if(data.length === 0)
+                {
+                    res.json("No artist nationality with with the characters ");
+                }
+            else{
+                res.send(data)
+                }
             });
     }
 

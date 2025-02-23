@@ -21,7 +21,13 @@ const getSpecificGenre = (app) =>
         .from('genres')
         .select('*, eras (*)')
         .eq('genreId', req.params.id);
-        res.send(data)
+        if(data.length === 0)
+            {
+                res.json("No genre with with the id", req.params.id );
+            }
+        else{
+            res.send(data)
+            }
         });
     }
 const getGenresOfPainting = (app) =>
@@ -32,7 +38,13 @@ const getGenresOfPainting = (app) =>
         .select('genreName ,paintinggenres!inner(genreId, paintingId)')
         .eq('paintinggenres.paintingId', req.params.id)
         .order('genreName', {ascending:true});
-        res.send(data)
+        if(data.length === 0)
+            {
+                res.json("No painting with with the id", req.params.id );
+            }
+        else{
+            res.send(data)
+            }
         });
     }
 
