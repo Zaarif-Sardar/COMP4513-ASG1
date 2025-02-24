@@ -1,6 +1,7 @@
 //connection to database
 const supa = require('@supabase/supabase-js');
 require("dotenv").config(); 
+const dotenv = require('dotenv').config(); 
 const supaUrl = process.env.SUPA_URL;
 const supaAnonKey = process.env.SUPA_ANON_KEY;
 const supabase = supa.createClient(supaUrl, supaAnonKey);
