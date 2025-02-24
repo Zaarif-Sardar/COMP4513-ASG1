@@ -1,8 +1,10 @@
 const supa = require('@supabase/supabase-js');
-const supaUrl = 'https://xepgwmitcygbgwpttelv.supabase.co';
-const supaAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhlcGd3bWl0Y3lnYmd3cHR0ZWx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMjYwODYsImV4cCI6MjA1NTYwMjA4Nn0.gksC0938ccPA8TsqpdxH--TprNp54gQFgvle3I45gLk';
+require("dotenv").config(); 
+const supaUrl = process.env.SUPA_URL;
+const supaAnonKey = process.env.SUPA_ANON_KEY;
 const supabase = supa.createClient(supaUrl, supaAnonKey);
 
+//Route to get count of paintings per genre
 const getPatintingsCountPerGenre = (app) =>
     {
         app.get("/api/count/genres", async (req, res) => {
@@ -13,7 +15,9 @@ const getPatintingsCountPerGenre = (app) =>
         res.send(data)
         });
     }
-    const getPatintingsCountPerArtist = (app) =>
+
+//Route to get count of paintings per artist
+const getPatintingsCountPerArtist = (app) =>
         {
             app.get("/api/count/artists", async (req, res) => {
             const {data, error} = await supabase
@@ -23,7 +27,8 @@ const getPatintingsCountPerGenre = (app) =>
             res.send(data)
             });
         }
-    const getTopGenres = (app) =>
+//Route to get count of top genres based on input
+const getTopGenres = (app) =>
         {
             app.get("/api/count/topgenres/:ref", async (req, res) => {
             const {data, error} = await supabase

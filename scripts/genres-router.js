@@ -1,9 +1,10 @@
 const supa = require('@supabase/supabase-js');
-const supaUrl = 'https://xepgwmitcygbgwpttelv.supabase.co';
-const supaAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhlcGd3bWl0Y3lnYmd3cHR0ZWx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMjYwODYsImV4cCI6MjA1NTYwMjA4Nn0.gksC0938ccPA8TsqpdxH--TprNp54gQFgvle3I45gLk';
+require("dotenv").config(); 
+const supaUrl = process.env.SUPA_URL;
+const supaAnonKey = process.env.SUPA_ANON_KEY;
 const supabase = supa.createClient(supaUrl, supaAnonKey);
 
-
+//Route to return all genres
 const getAllGenres = (app) =>
     {
         app.get("/api/genres", async (req, res) => {
@@ -13,7 +14,7 @@ const getAllGenres = (app) =>
         res.send(data)
         });
     }
-//Get a Artists
+//Route to get specific genre based on id
 const getSpecificGenre = (app) =>
     {
         app.get("/api/genres/:id", async (req, res) => {
@@ -21,15 +22,16 @@ const getSpecificGenre = (app) =>
         .from('genres')
         .select('*, eras (*)')
         .eq('genreId', req.params.id);
-        if(data.length === 0)
+        if(data.length === 0)//Check if returned empty array
             {
                 res.json("No genre with with the id", req.params.id );
             }
         else{
-            res.send(data)
+                res.send(data)
             }
         });
     }
+//Route to get genres of painting based on id 
 const getGenresOfPainting = (app) =>
     {
         app.get("/api/genres/painting/:id", async (req, res) => {

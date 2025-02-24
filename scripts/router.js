@@ -1,10 +1,11 @@
 const api = require('../api.js');
 const supa = require('@supabase/supabase-js');
-const supaUrl = 'https://xepgwmitcygbgwpttelv.supabase.co';
-const supaAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhlcGd3bWl0Y3lnYmd3cHR0ZWx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMjYwODYsImV4cCI6MjA1NTYwMjA4Nn0.gksC0938ccPA8TsqpdxH--TprNp54gQFgvle3I45gLk';
+require("dotenv").config(); 
+const supaUrl = process.env.SUPA_URL;
+const supaAnonKey = process.env.SUPA_ANON_KEY;
 const supabase = supa.createClient(supaUrl, supaAnonKey);
 
-//get all eras
+//get all eras route
 const getAllEras = (app) =>
     {
         app.get("/api/eras", async (req, res) => {
@@ -14,7 +15,7 @@ const getAllEras = (app) =>
         res.send(data)
         });
     }
-// get all Galleries
+// get all Galleries route
 const getAllGalleries = (app) =>
     {
         app.get("/api/galleries", async (req, res) => {
@@ -25,7 +26,7 @@ const getAllGalleries = (app) =>
         });
     }
 
-// get all Galleries
+//Get a Gallerery route
 const getSpecificGallery = (app) =>
     {
         app.get("/api/galleries/:id", async (req, res) => {
@@ -33,7 +34,7 @@ const getSpecificGallery = (app) =>
         .from('galleries')
             .select()
             .eq('galleryId',req.params.id);
-            if(data.length === 0)
+            if(data.length === 0)//Check if returned empty array
                 {
                     res.json("No gallery with that ID");
                 }
@@ -43,6 +44,7 @@ const getSpecificGallery = (app) =>
         });
     
     }
+//Get gallery by country.
 const getCountryGallery = (app) =>
     {
         app.get("/api/galleries/country/:substring" , async (req, res) => {
@@ -50,7 +52,7 @@ const getCountryGallery = (app) =>
         .from('galleries')
         .select()
         .ilike('galleryCountry',`${req.params.substring}%`);
-        if(data.length === 0)
+        if(data.length === 0)//Check if returned empty array
             {
                 res.json("No gallery country with with those characters");
             }

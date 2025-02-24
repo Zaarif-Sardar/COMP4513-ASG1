@@ -1,9 +1,10 @@
 const supa = require('@supabase/supabase-js');
-const supaUrl = 'https://xepgwmitcygbgwpttelv.supabase.co';
-const supaAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhlcGd3bWl0Y3lnYmd3cHR0ZWx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMjYwODYsImV4cCI6MjA1NTYwMjA4Nn0.gksC0938ccPA8TsqpdxH--TprNp54gQFgvle3I45gLk';
+require("dotenv").config(); 
+const supaUrl = process.env.SUPA_URL;
+const supaAnonKey = process.env.SUPA_ANON_KEY;
 const supabase = supa.createClient(supaUrl, supaAnonKey);
 
-
+//Route that gets all paintings
 const getAllPaintings = (app) =>
     {
         app.get("/api/paintings", async (req, res) => {
@@ -14,8 +15,10 @@ const getAllPaintings = (app) =>
         res.send(data)
         });
     }
+//Route to get paintings sorted by year or title 
 const getPaintingsSortbyTitleOrYear = (app) =>
     {
+        //by title
         app.get("/api/paintings/sort/:method", async (req, res) => {
         if(req.params.method == 'title')
         {
@@ -25,6 +28,7 @@ const getPaintingsSortbyTitleOrYear = (app) =>
             .order('title', {ascending:true});
             res.send(data)
         }
+        //by year
         else if (req.params.method == 'year')
         {
             const {data, error} = await supabase
@@ -36,6 +40,7 @@ const getPaintingsSortbyTitleOrYear = (app) =>
 
         });
     }
+//Route to get painting by id 
 const getSpecificPaintingsId = (app) =>
     {
         app.get("/api/paintings/:id", async (req, res) => {
@@ -43,7 +48,7 @@ const getSpecificPaintingsId = (app) =>
         .from('paintings')
         .select('*, artists (*), galleries (*)')
         .eq('paintingId',req.params.id);
-        if(data.length === 0)
+        if(data.length === 0)//Check if returned empty array
             {
                 res.json("No painting with with the id");
             }
@@ -52,6 +57,7 @@ const getSpecificPaintingsId = (app) =>
             }
         });
     }
+//Route to get painting based on inputted characters and title
 const getPaintingsbySubtring = (app) =>
     {
         app.get("/api/paintings/search/:substring", async (req, res) => {
@@ -59,7 +65,7 @@ const getPaintingsbySubtring = (app) =>
         .from('paintings')
         .select('*, artists!inner (*), galleries!inner(*)')
         .ilike('title',`%${req.params.substring}%`);
-        if(data.length === 0)
+        if(data.length === 0)//Check if returned empty array
             {
                 res.json("No painting title with with the substring");
             }
@@ -68,6 +74,7 @@ const getPaintingsbySubtring = (app) =>
             }
         });
     }
+//Route to get paintings based on year range inputted.
 const getPaintingsYearRange = (app) =>
     {
         app.get("/api/paintings/years/:start/:end", async (req, res) => {
@@ -77,7 +84,7 @@ const getPaintingsYearRange = (app) =>
             .gte("yearOfWork", req.params.start)
             .lte("yearOfWork", req.params.end)
             .order("yearOfWork",{ascending:true});
-            if(data.length === 0)
+            if(data.length === 0)//Check if returned empty array
                 {
                     res.json("no paintings within that year range. Try a different range." );
                 }
@@ -86,6 +93,7 @@ const getPaintingsYearRange = (app) =>
                 }
             });
     }
+//Route to get paintings by their gallery id
 const getPaintingsbyGalleryId = (app) =>
     {
         app.get("/api/paintings/galleries/:gId", async (req, res) => {
@@ -93,7 +101,7 @@ const getPaintingsbyGalleryId = (app) =>
             .from('paintings')
             .select('*, artists (*), galleries (*)')
             .eq("galleryId",req.params.gId)
-            if(data.length === 0)
+            if(data.length === 0)//Check if returned empty array
                 {
                     res.json("No gallery with with the id");
                 }
@@ -102,6 +110,7 @@ const getPaintingsbyGalleryId = (app) =>
                 }
             });
     }
+//Route to get painting bases on the artist
 const getPaintingsbyArtistId = (app) =>
     {
         app.get("/api/paintings/artist/:aId", async (req, res) => {
@@ -109,7 +118,7 @@ const getPaintingsbyArtistId = (app) =>
             .from('paintings')
             .select('*, artists (*), galleries (*)')
             .eq("artistId",req.params.aId)
-            if(data.length === 0)
+            if(data.length === 0)//Check if returned empty array
                 {
                     res.json("No artist with with the id" );
                 }
@@ -118,6 +127,7 @@ const getPaintingsbyArtistId = (app) =>
                 }
             });
     }
+//Route to get painting based on artist nationality
 const getPaintingsbyArtistNationality = (app) =>
     {
         app.get("/api/paintings/artist/country/:substring", async (req, res) => {

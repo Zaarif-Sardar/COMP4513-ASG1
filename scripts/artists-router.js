@@ -1,9 +1,11 @@
+//connection to database
 const supa = require('@supabase/supabase-js');
-const supaUrl = 'https://xepgwmitcygbgwpttelv.supabase.co';
-const supaAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhlcGd3bWl0Y3lnYmd3cHR0ZWx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwMjYwODYsImV4cCI6MjA1NTYwMjA4Nn0.gksC0938ccPA8TsqpdxH--TprNp54gQFgvle3I45gLk';
+require("dotenv").config(); 
+const supaUrl = process.env.SUPA_URL;
+const supaAnonKey = process.env.SUPA_ANON_KEY;
 const supabase = supa.createClient(supaUrl, supaAnonKey);
 
-
+//Routes for Artists
 //Get all Artists
 const getAllArtists = (app) =>
     {
@@ -22,7 +24,7 @@ const getSpecificArtist = (app) =>
         .from('artists')
         .select()
         .eq('artistId', req.params.id);
-        if(data.length === 0)
+        if(data.length === 0)//Check if returned empty array 
             {
                 res.json("No Artist with with that ID");
             }
@@ -31,7 +33,7 @@ const getSpecificArtist = (app) =>
             }
         });
     }
-
+//Route to get artist with specific characters 
 const getSpecificArtistSubtring = (app) =>
     {
         app.get("/api/artists/search/:substring", async (req, res) => {
@@ -39,7 +41,7 @@ const getSpecificArtistSubtring = (app) =>
         .from('artists')
         .select()
         .ilike('lastName',`${req.params.substring}%`);
-        if(data.length === 0)
+        if(data.length === 0)//Check if returned empty array
             {
                 res.json("No Artist with with that in their last name");
             }
@@ -48,6 +50,7 @@ const getSpecificArtistSubtring = (app) =>
             }
         });
     }
+//Route to get artist with specific characters in thier nationality  
 const getArtistSubtringCountry = (app) =>
     {
         app.get("/api/artists/country/:substring", async (req, res) => {
@@ -55,7 +58,7 @@ const getArtistSubtringCountry = (app) =>
         .from('artists')
         .select()
         .ilike('nationality',`${req.params.substring}%`);
-        if(data.length === 0)
+        if(data.length === 0)//Check if returned empty array
             {
                 res.json("No artist nationality with with those characters");
             }
@@ -64,7 +67,7 @@ const getArtistSubtringCountry = (app) =>
             }
         });
     }
-
+//export routes 
 module.exports = {
     getAllArtists,
     getSpecificArtist,

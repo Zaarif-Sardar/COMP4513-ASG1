@@ -1,8 +1,7 @@
 const express = require('express');
 const app = express();
 
-
-
+//Initialize route modules
 const router = require('./scripts/router.js');
 const artistRouter = require('./scripts/artists-router.js')
 const paintingRouter = require('./scripts/paintings-router.js')
@@ -42,13 +41,13 @@ genresRouter.getGenresOfPainting(app);
 paintingExtraRouter.getPatintingsBasedOnGenreID(app);
 paintingExtraRouter.getPatintingsBasedOnEras(app);
 
-// count routes
+//count routes
 countRouter.getPatintingsCountPerGenre(app);
 countRouter.getPatintingsCountPerArtist(app);
 countRouter.getTopGenres(app);
 
 
-//set port
+//set port and testing routes 
 app.listen(8080, () => {
     console.log('listening on port 8080');
     console.log('http://localhost:8080/api/eras');
@@ -84,4 +83,5 @@ app.listen(8080, () => {
 
 
     });
+
 
