@@ -38,12 +38,12 @@ genresRouter.getSpecificGenre(app);
 genresRouter.getGenresOfPainting(app);
 
 //Paintings Extra Routes 
-paintingExtraRouter.getPatintingsBasedOnGenreID(app);
-paintingExtraRouter.getPatintingsBasedOnEras(app);
+paintingExtraRouter.getPaintingsBasedOnGenreID(app);
+paintingExtraRouter.getPaintingsBasedOnEras(app);
 
 //count routes
-countRouter.getPatintingsCountPerGenre(app);
-countRouter.getPatintingsCountPerArtist(app);
+countRouter.getPaintingsCountPerGenre(app);
+countRouter.getPaintingsCountPerArtist(app);
 countRouter.getTopGenres(app);
 
 
@@ -80,8 +80,6 @@ app.listen(8080, () => {
     console.log('http://localhost:8080/api/count/genres');
     console.log('http://localhost:8080/api/count/artists');
     console.log('http://localhost:8080/api/count/topgenres/ref');
-
-
     });
 
 

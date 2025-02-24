@@ -1,12 +1,11 @@
 const supa = require('@supabase/supabase-js');
-require("dotenv").config(); 
-const dotenv = require('dotenv').config(); 
-const supaUrl = process.env.SUPA_URL;
-const supaAnonKey = process.env.SUPA_ANON_KEY;
+const env = require('../config.js');
+const supaUrl = env.supaUrl;
+const supaAnonKey = env.supaAnonKey;
 const supabase = supa.createClient(supaUrl, supaAnonKey);
 
 //Route to get count of paintings per genre
-const getPatintingsCountPerGenre = (app) =>
+const getPaintingsCountPerGenre = (app) =>
     {
         app.get("/api/count/genres", async (req, res) => {
         const {data,error} = await supabase
@@ -18,7 +17,7 @@ const getPatintingsCountPerGenre = (app) =>
     }
 
 //Route to get count of paintings per artist
-const getPatintingsCountPerArtist = (app) =>
+const getPaintingsCountPerArtist = (app) =>
         {
             app.get("/api/count/artists", async (req, res) => {
             const {data, error} = await supabase
@@ -48,7 +47,7 @@ const getTopGenres = (app) =>
         }
 
 module.exports = {
-    getPatintingsCountPerGenre,
-    getPatintingsCountPerArtist,
+    getPaintingsCountPerGenre,
+    getPaintingsCountPerArtist,
     getTopGenres
     };
