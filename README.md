@@ -4,6 +4,7 @@ API Host Site Link: https://comp4513-asg1-7ly9.onrender.com
 
 
 **************Test Links**************
+
 https://comp4513-asg1-7ly9.onrender.com/api/eras
 
 https://comp4513-asg1-7ly9.onrender.com/api/galleries
@@ -60,9 +61,10 @@ https://comp4513-asg1-7ly9.onrender.com/api/paintings/genre/78
 
 https://comp4513-asg1-7ly9.onrender.com/api/paintings/era/2
 
-https://comp4513-asg1-7ly9.onrender.com/api/counts/genres
+https://comp4513-asg1-7ly9.onrender.com/api/count/genres
 
-https://comp4513-asg1-7ly9.onrender.com/api/counts/artists
+https://comp4513-asg1-7ly9.onrender.com/api/count/artists
 
-https://comp4513-asg1-7ly9.onrender.com/api/counts/topgenres/20
-https://comp4513-asg1-7ly9.onrender.com/api/counts/topgenres/2034958
+https://comp4513-asg1-7ly9.onrender.com/api/count/topgenres/20
+
+https://comp4513-asg1-7ly9.onrender.com/api/count/topgenres/2034958
