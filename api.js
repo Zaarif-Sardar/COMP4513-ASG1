@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-
+const cors = require('cors');
+app.use(cors());
 //Initialize route modules
 const router = require('./scripts/router.js');
 const artistRouter = require('./scripts/artists-router.js')
