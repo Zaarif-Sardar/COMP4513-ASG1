@@ -11,7 +11,7 @@ const getAllArtists = (app) =>
     {
         app.get("/api/artists", async (req, res) => {
         const {data, error} = await supabase
-        .from('artists')
+        .from('artists, paintings (*), galleries (*) ')
         .select();
         res.send(data)
         });
