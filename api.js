@@ -41,6 +41,8 @@ genresRouter.getGenresOfPainting(app);
 //Paintings Extra Routes 
 paintingExtraRouter.getPaintingsBasedOnGenreID(app);
 paintingExtraRouter.getPaintingsBasedOnEras(app);
+paintingExtraRouter.getAllPaintingsIdsAndGenres(app);
+
 
 //count routes
 countRouter.getPaintingsCountPerGenre(app);

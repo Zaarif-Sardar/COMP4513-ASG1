@@ -41,7 +41,19 @@ const getPaintingsBasedOnEras = (app) =>
         });
     }
 
+    //Route to get paintings based on era id
+const getAllPaintingsIdsAndGenres = (app) =>
+    {
+        app.get("/api/paintings/paintings/genres", async (req, res) => {
+        const {data, error} = await supabase
+        .from('paintinggenres')
+        .select()
+        res.send(data)
+        });
+    }
+
     module.exports = {
         getPaintingsBasedOnGenreID,
-        getPaintingsBasedOnEras
+        getPaintingsBasedOnEras,
+        getAllPaintingsIdsAndGenres
         };
